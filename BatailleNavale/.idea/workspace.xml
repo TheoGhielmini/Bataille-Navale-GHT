@@ -13,6 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1a924490-dce3-4d9f-b96a-ee688fd59da4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/BatailleNavale.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/BatailleNavale.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/BatailleNavale.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/BatailleNavale.dir/main.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/BatailleNavale.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/BatailleNavale.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +69,14 @@
       <workItem from="1638800706752" duration="41000" />
       <workItem from="1638800790721" duration="188000" />
       <workItem from="1638800998515" duration="1533000" />
+      <workItem from="1638802675274" duration="15000" />
+      <workItem from="1638957877992" duration="124000" />
+      <workItem from="1639398905967" duration="28000" />
+      <workItem from="1639399147134" duration="3000" />
+      <workItem from="1639400615072" duration="1406000" />
+      <workItem from="1639402117889" duration="139000" />
+      <workItem from="1639402304517" duration="3395000" />
+      <workItem from="1639406027462" duration="1197000" />
     </task>
     <servers />
   </component>

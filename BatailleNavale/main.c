@@ -1,11 +1,23 @@
 #include <stdio.h>
 
 #define MAX_TAB 10
+#define DECAL 49
 
 void menu_principale();
+
 void menu_aide();
+
 void init_tableau();
+
 void affiche_tableau();
+
+int coupJouer[MAX_TAB][MAX_TAB];
+int carte[MAX_TAB][MAX_TAB];
+
+
+void clear() {
+    while (getchar() != '\n');
+}
 
 void menu_aide() {
     printf("==============================\n");
@@ -21,11 +33,11 @@ void menu_aide() {
 
 void menu_principale() {
     int votre_choix;
-    char votre_nom = "";
+    char votre_nom[50];
     int plateauJeu;
     int debut_partie;
     int grille[MAX_TAB][MAX_TAB];
-    printf("Welcome to BatNav");
+    printf("\nWelcome to Batman");
     printf("\n=========================\n");
     printf("Que voulez-vous faire?\n");
 
@@ -35,7 +47,7 @@ void menu_principale() {
     printf("Votre choix ?\n");
     scanf("%d", &votre_choix);
 
-    while (votre_choix < 1 || votre_choix > 3){
+    while (votre_choix < 1 || votre_choix > 3) {
         printf("Erreur veuillez entrer un nombre entre 1 et 3 :\n");
         scanf("%d", &votre_choix);
     }
@@ -45,43 +57,81 @@ void menu_principale() {
             menu_aide();
             break;
 
-            case 2:
-                printf("Votre nom : \n");
-                scanf("%c \n", &votre_nom);
-                printf("Joueur : %c", votre_nom);
-                //init_tableau(grille);
-                //affiche_tableau(grille);
-                break;
+        case 2:
+            printf("Votre nom : \n");
+            scanf("%s", votre_nom);
+            clear();
+            printf("Joueur : %s \n\n", votre_nom);
+            init_tableau(grille);
+            affiche_tableau(grille);
 
-                case 3:
-                    printf("Scores :");
-                    break;
+            break;
+
+        case 3:
+            printf("Scores :");
+            break;
 
 
     }
 
 }
 
-void init_tableau(int plateau[MAX_TAB][MAX_TAB]) {
-    for (int x = 0; x < MAX_TAB; x++) {
+
+void init_coup() {
+    for (int i = 0; i < MAX_TAB; i++) {
         for (int y = 0; y < MAX_TAB; y++) {
+            coupJouer[y][i] = 0;
+        }
+    }
+}
+
+void afficher_coup() {
+    for (int i = 0; i < MAX_TAB; i++) {
+        for (int y = 0; y < MAX_TAB; y++) {
+            printf("%i ", coupJouer[y][i]);
+        }
+        printf("\n");
+    }
+}
+
+void afficher_carte() {
+    for (int i = 0; i < MAX_TAB; i++) {
+        for (int y = 0; y < MAX_TAB; y++) {
+            printf("%i ", carte[y][i]);
+        }
+        printf("\n");
+    }
+}
+
+void demander_couper(char monchoix[2]) {
+    printf("Merci de donner votre chois : ");
+
+    scanf("%s", monchoix);
+    clear();
+}
+
+void init_tableau(int plateau[MAX_TAB][MAX_TAB]) {
+    for (int y = 0; y < MAX_TAB; y++) {
+        for (int x = 0; x < MAX_TAB; x++) {
             plateau[x][y] = 0;
         }
     }
 }
 
 void affiche_tableau(int plateau[MAX_TAB][MAX_TAB]) {
-    for (int x = 0; x < MAX_TAB; x++) {
-        for (int y = 0; y < MAX_TAB; y++) {
+    printf("    A  B  C  D  E  F  G  H  I  J\n");
+    for (int y = 0; y < MAX_TAB; y++) {
+        printf("%2d", y + 1);
+        for (int x = 0; x < MAX_TAB; x++) {
             printf("%3d", plateau[x][y]);
         }
         printf("\n");
     }
 }
 
+
 int main() {
     menu_principale();
-
 
 
     return 0;
