@@ -11,12 +11,99 @@ void init_tableau();
 
 void affiche_tableau();
 
+void init_coup();
+
+void afficher_coup();
+
+void afficher_carte();
+
+void demander_couper();
+
+void init_carte();
+
 int coupJouer[MAX_TAB][MAX_TAB];
 int carte[MAX_TAB][MAX_TAB];
 
 
 void clear() {
     while (getchar() != '\n');
+}
+
+void partie() {
+    int index_col = 0;
+    char choix[2];
+    char votre_nom[50];
+    int score = 50;
+    printf("Votre nom : \n");
+    scanf("%s", votre_nom);
+
+    init_carte();
+    init_coup();
+
+    while (choix[0] != 'f') {
+        printf("Joueur : %s \n\n", votre_nom);
+        printf("Score %d\n", score);
+        afficher_coup();
+        demander_couper(choix);
+        printf("Vous avez choisi : %s\n", choix);
+        printf("Votre col : %c et votre ligne : %c\n", choix[0], choix[1]);
+
+        switch (choix[0]) {
+            case 'a':
+            case 'A':
+                // ici on est sur la col 0
+                index_col = 0;
+                break;
+            case 'b':
+            case 'B':
+                index_col = 1;
+                break;
+            case 'c':
+            case 'C':
+                index_col = 2;
+                break;
+            case 'd':
+            case 'D':
+                index_col = 3;
+                break;
+            case 'e':
+            case 'E':
+                index_col = 4;
+                break;
+            case 'f':
+            case 'F':
+                index_col = 5;
+                break;
+            case 'g':
+            case 'G':
+                index_col = 6;
+                break;
+            case 'h':
+            case 'H':
+                index_col = 7;
+                break;
+            case 'i':
+            case 'I':
+                index_col = 8;
+                break;
+            case 'j':
+            case 'J':
+                index_col = 9;
+                break;
+
+        }
+        int index_ligne = choix[1] - DECAL;
+        printf("col : %d ligne : %d\n", index_col, index_ligne);
+        if (carte[index_col][index_ligne] == 1) {
+            printf("toucher ! \n");
+            coupJouer[index_col][index_ligne] = 1;
+        } else {
+            printf("Out !\n");
+            coupJouer[index_col][index_ligne] = 9;
+            score--;
+        }
+    }
+
 }
 
 void menu_aide() {
@@ -37,6 +124,10 @@ void menu_principale() {
     int plateauJeu;
     int debut_partie;
     int grille[MAX_TAB][MAX_TAB];
+    int index_col = 0;
+    char choix[2];
+    init_carte();
+    init_coup();
     printf("\nWelcome to Batman");
     printf("\n=========================\n");
     printf("Que voulez-vous faire?\n");
@@ -58,12 +149,7 @@ void menu_principale() {
             break;
 
         case 2:
-            printf("Votre nom : \n");
-            scanf("%s", votre_nom);
-            clear();
-            printf("Joueur : %s \n\n", votre_nom);
-            init_tableau(grille);
-            affiche_tableau(grille);
+            partie();
 
             break;
 
@@ -76,6 +162,23 @@ void menu_principale() {
 
 }
 
+void init_carte() {
+    carte[1][1] = 1;
+    carte[1][3] = 1;
+    carte[2][3] = 1;
+    carte[1][5] = 1;
+    carte[2][5] = 1;
+    carte[3][5] = 1;
+    carte[1][7] = 1;
+    carte[2][7] = 1;
+    carte[3][7] = 1;
+    carte[4][7] = 1;
+    carte[8][0] = 1;
+    carte[8][1] = 1;
+    carte[8][2] = 1;
+    carte[8][3] = 1;
+    carte[8][4] = 1;
+}
 
 void init_coup() {
     for (int i = 0; i < MAX_TAB; i++) {
@@ -86,9 +189,12 @@ void init_coup() {
 }
 
 void afficher_coup() {
+    printf("      A  B  C  D  E  F  G  H  I  J\n");
+    printf("      _  _  _  _  _  _  _  _  _  _\n");
     for (int i = 0; i < MAX_TAB; i++) {
+        printf("%2d  |", i + 1);
         for (int y = 0; y < MAX_TAB; y++) {
-            printf("%i ", coupJouer[y][i]);
+            printf("%2i ", coupJouer[y][i]);
         }
         printf("\n");
     }
