@@ -3,13 +3,10 @@
 #define MAX_TAB 10
 #define DECAL 49
 
-void menu_principale();
+int coupJouer[MAX_TAB][MAX_TAB];
+int carte[MAX_TAB][MAX_TAB];
 
 void menu_aide();
-
-void init_tableau();
-
-void affiche_tableau();
 
 void init_coup();
 
@@ -21,37 +18,33 @@ void demander_couper();
 
 void init_carte();
 
-int coupJouer[MAX_TAB][MAX_TAB];
-int carte[MAX_TAB][MAX_TAB];
-
-
 void clear() {
     while (getchar() != '\n');
 }
 
 void partie() {
     int index_col = 0;
-    char choix[2];
+    char choix[3];
     char votre_nom[50];
     int score = 50;
     printf("Votre nom : \n");
     scanf("%s", votre_nom);
+    clear();
 
     init_carte();
     init_coup();
 
-    while (choix[0] != 'f') {
+    while (choix[0] != 'k') {
         printf("Joueur : %s \n\n", votre_nom);
-        printf("Score %d\n", score);
+        printf("Score %d\n\n", score);
         afficher_coup();
         demander_couper(choix);
         printf("Vous avez choisi : %s\n", choix);
-        printf("Votre col : %c et votre ligne : %c\n", choix[0], choix[1]);
+        printf("Votre col : %C et votre ligne : %c%c\n", choix[0], choix[1], choix[2]);
 
         switch (choix[0]) {
             case 'a':
             case 'A':
-                // ici on est sur la col 0
                 index_col = 0;
                 break;
             case 'b':
@@ -91,8 +84,17 @@ void partie() {
                 index_col = 9;
                 break;
 
+            case 'O':
+                menu_aide();
+                break;
+
         }
         int index_ligne = choix[1] - DECAL;
+        if(index_ligne == 0){
+            if(choix[2]==0){
+                index_ligne = 9;
+            }
+        }
         printf("col : %d ligne : %d\n", index_col, index_ligne);
         if (carte[index_col][index_ligne] == 1) {
             printf("toucher ! \n");
@@ -115,51 +117,7 @@ void menu_aide() {
            "Un cuirasse de 4 cases\n"
            "Un porte-avion de 5 cases\n\nDeux bateaux ne peuvent pas se toucher\n"
            "Un bateau ne peut pas etre en contact avec le bord de la grille par plus que 1 case");
-    printf("\n==============================");
-}
-
-void menu_principale() {
-    int votre_choix;
-    char votre_nom[50];
-    int plateauJeu;
-    int debut_partie;
-    int grille[MAX_TAB][MAX_TAB];
-    int index_col = 0;
-    char choix[2];
-    init_carte();
-    init_coup();
-    printf("\nWelcome to Batman");
-    printf("\n=========================\n");
-    printf("Que voulez-vous faire?\n");
-
-    printf("1. Aide\n");
-    printf("2. Jouer\n");
-    printf("3. Scores\n");
-    printf("Votre choix ?\n");
-    scanf("%d", &votre_choix);
-
-    while (votre_choix < 1 || votre_choix > 3) {
-        printf("Erreur veuillez entrer un nombre entre 1 et 3 :\n");
-        scanf("%d", &votre_choix);
-    }
-
-    switch (votre_choix) {
-        case 1:
-            menu_aide();
-            break;
-
-        case 2:
-            partie();
-
-            break;
-
-        case 3:
-            printf("Scores :");
-            break;
-
-
-    }
-
+    printf("\n==============================\n");
 }
 
 void init_carte() {
@@ -200,45 +158,50 @@ void afficher_coup() {
     }
 }
 
-void afficher_carte() {
-    for (int i = 0; i < MAX_TAB; i++) {
-        for (int y = 0; y < MAX_TAB; y++) {
-            printf("%i ", carte[y][i]);
-        }
-        printf("\n");
-    }
-}
 
 void demander_couper(char monchoix[2]) {
-    printf("Merci de donner votre chois : ");
+    printf("\nMerci de donner votre choix : ");
 
     scanf("%s", monchoix);
     clear();
 }
 
-void init_tableau(int plateau[MAX_TAB][MAX_TAB]) {
-    for (int y = 0; y < MAX_TAB; y++) {
-        for (int x = 0; x < MAX_TAB; x++) {
-            plateau[x][y] = 0;
-        }
-    }
-}
-
-void affiche_tableau(int plateau[MAX_TAB][MAX_TAB]) {
-    printf("    A  B  C  D  E  F  G  H  I  J\n");
-    for (int y = 0; y < MAX_TAB; y++) {
-        printf("%2d", y + 1);
-        for (int x = 0; x < MAX_TAB; x++) {
-            printf("%3d", plateau[x][y]);
-        }
-        printf("\n");
-    }
-}
-
 
 int main() {
-    menu_principale();
+    int votre_choix;
+    init_carte();
+    init_coup();
+    printf("\nWelcome to BatNaV");
+    printf("\n=========================\n");
+    printf("Que voulez-vous faire?\n");
 
+    printf("1. Aide\n");
+    printf("2. Jouer\n");
+    printf("3. Scores\n");
+    printf("Votre choix ?\n");
+    scanf("%d", &votre_choix);
 
+    while (votre_choix < 1 || votre_choix > 3) {
+        printf("Erreur veuillez entrer un nombre entre 1 et 3 :\n");
+        scanf("%d", &votre_choix);
+    }
+
+    switch (votre_choix) {
+        case 1:
+            menu_aide();
+            break;
+
+        case 2:
+            partie();
+            break;
+
+        case 3:
+            printf("Scores :");
+            break;
+    }
     return 0;
 }
+
+
+
+
