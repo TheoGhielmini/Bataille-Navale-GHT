@@ -83,6 +83,9 @@ void partie() {
             case 'J':
                 index_col = 9;
                 break;
+            case 0:
+                menu_aide(2);
+                break;
 
 
         }
@@ -141,7 +144,6 @@ void menu_principal() {
 }
 
 void menu_aide(int menu) {
-    char quitterAide;
     printf("==============================\n");
     printf("Regles du jeu");
     printf("\nLes bateaux : \nIl y a cinq bateaux disponible \n\nUn zodiaque de 1 case\n"
@@ -152,18 +154,6 @@ void menu_aide(int menu) {
            "Un bateau ne peut pas etre en contact avec le bord de la grille par plus que 1 case");
     printf("\n==============================\n");
 
-}
-
-void aide_jeu() {
-    printf("==============================\n");
-    printf("Regles du jeu");
-    printf("\nLes bateaux : \nIl y a cinq bateaux disponible \n\nUn zodiaque de 1 case\n"
-           "Une vedette rapide de 2 cases\n"
-           "Un croiseur de 3 cases\n"
-           "Un cuirasse de 4 cases\n"
-           "Un porte-avion de 5 cases\n\nDeux bateaux ne peuvent pas se toucher\n"
-           "Un bateau ne peut pas etre en contact avec le bord de la grille par plus que 1 case");
-    printf("\n==============================\n");
 }
 
 void init_carte() {
