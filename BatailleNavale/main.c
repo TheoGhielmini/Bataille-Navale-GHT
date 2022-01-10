@@ -84,14 +84,11 @@ void partie() {
                 index_col = 9;
                 break;
 
-            case 'O':
-                menu_aide();
-                break;
 
         }
         int index_ligne = choix[1] - DECAL;
-        if(index_ligne == 0){
-            if(choix[2]==0){
+        if (index_ligne == 0) {
+            if (choix[2] == 0) {
                 index_ligne = 9;
             }
         }
@@ -108,10 +105,59 @@ void partie() {
 
 }
 
-void menu_aide() {
+void menu_principal() {
+    int votre_choix;
+    init_carte();
+    init_coup();
+    printf("\nWelcome to BatNaV");
+    printf("\n=========================\n");
+    printf("Que voulez-vous faire?\n");
+
+    printf("1. Aide\n");
+    printf("2. Jouer\n");
+    printf("3. Scores\n");
+    printf("Votre choix ?\n");
+    scanf("%d", &votre_choix);
+
+    while (votre_choix < 1 || votre_choix > 3) {
+        printf("Erreur veuillez entrer un nombre entre 1 et 3 :\n");
+        scanf("%d", &votre_choix);
+    }
+
+    switch (votre_choix) {
+        case 1:
+            menu_aide(1);
+            break;
+
+        case 2:
+            partie();
+            break;
+
+        case 3:
+            printf("Scores :");
+            break;
+    }
+
+}
+
+void menu_aide(int menu) {
+    char quitterAide;
     printf("==============================\n");
-    printf("Regles du jeu :");
-    printf("\nLes bateaux : \n\nIl y a cinq bateaux disponible :\n\nUn zodiaque de 1 case\n"
+    printf("Regles du jeu");
+    printf("\nLes bateaux : \nIl y a cinq bateaux disponible \n\nUn zodiaque de 1 case\n"
+           "Une vedette rapide de 2 cases\n"
+           "Un croiseur de 3 cases\n"
+           "Un cuirasse de 4 cases\n"
+           "Un porte-avion de 5 cases\n\nDeux bateaux ne peuvent pas se toucher\n"
+           "Un bateau ne peut pas etre en contact avec le bord de la grille par plus que 1 case");
+    printf("\n==============================\n");
+
+}
+
+void aide_jeu() {
+    printf("==============================\n");
+    printf("Regles du jeu");
+    printf("\nLes bateaux : \nIl y a cinq bateaux disponible \n\nUn zodiaque de 1 case\n"
            "Une vedette rapide de 2 cases\n"
            "Un croiseur de 3 cases\n"
            "Un cuirasse de 4 cases\n"
@@ -168,37 +214,8 @@ void demander_couper(char monchoix[2]) {
 
 
 int main() {
-    int votre_choix;
-    init_carte();
-    init_coup();
-    printf("\nWelcome to BatNaV");
-    printf("\n=========================\n");
-    printf("Que voulez-vous faire?\n");
+    menu_principal();
 
-    printf("1. Aide\n");
-    printf("2. Jouer\n");
-    printf("3. Scores\n");
-    printf("Votre choix ?\n");
-    scanf("%d", &votre_choix);
-
-    while (votre_choix < 1 || votre_choix > 3) {
-        printf("Erreur veuillez entrer un nombre entre 1 et 3 :\n");
-        scanf("%d", &votre_choix);
-    }
-
-    switch (votre_choix) {
-        case 1:
-            menu_aide();
-            break;
-
-        case 2:
-            partie();
-            break;
-
-        case 3:
-            printf("Scores :");
-            break;
-    }
     return 0;
 }
 
