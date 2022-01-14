@@ -68,6 +68,7 @@ void partie() {
     init_carte();
     init_coup();
 
+
     while (choix[0] != 'k') {
         printf("Joueur : %s \n\n", votre_nom);
         printf("Score %d\n\n", score);
@@ -120,23 +121,24 @@ void partie() {
         }
         if (choix[0] == 48) {
             menu_aide(2);
+            score = score + 1;
         }
         int index_ligne = choix[1] - DECAL;
-        if (index_ligne == 0) {
-            if (choix[2] == 0) {
+        if ((choix[1] - DECAL) == 0) {
+            if (choix[2] == 48) {
                 index_ligne = 9;
             }
         }
-        if (carte[index_col][index_ligne] == 1) {
+        if (carte[index_col][index_ligne] > 0) {
             printf("toucher ! \n");
-            coupJouer[index_col][index_ligne] = 1;
+            coupJouer[index_col][index_ligne] = carte[index_col][index_ligne];
         } else {
             printf("Out !\n");
             coupJouer[index_col][index_ligne] = 9;
             score--;
         }
-    }
 
+    }
 }
 
 void menu_principal() {
@@ -169,20 +171,20 @@ void menu_principal() {
 
 void init_carte() {
     carte[1][1] = 1;
-    carte[1][3] = 1;
-    carte[2][3] = 1;
-    carte[1][5] = 1;
-    carte[2][5] = 1;
-    carte[3][5] = 1;
-    carte[1][7] = 1;
-    carte[2][7] = 1;
-    carte[3][7] = 1;
-    carte[4][7] = 1;
-    carte[8][0] = 1;
-    carte[8][1] = 1;
-    carte[8][2] = 1;
-    carte[8][3] = 1;
-    carte[8][4] = 1;
+    carte[1][3] = 2;
+    carte[2][3] = 2;
+    carte[1][5] = 3;
+    carte[2][5] = 3;
+    carte[3][5] = 3;
+    carte[1][7] = 4;
+    carte[2][7] = 4;
+    carte[3][7] = 4;
+    carte[4][7] = 4;
+    carte[8][0] = 5;
+    carte[8][1] = 5;
+    carte[8][2] = 5;
+    carte[8][3] = 5;
+    carte[8][4] = 5;
 }
 
 void init_coup() {
