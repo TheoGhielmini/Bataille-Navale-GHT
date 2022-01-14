@@ -6,20 +6,54 @@
 int coupJouer[MAX_TAB][MAX_TAB];
 int carte[MAX_TAB][MAX_TAB];
 
-void menu_aide();
+
+void menu_principal();
 
 void init_coup();
 
 void afficher_coup();
 
-void afficher_carte();
+void clear() {
+    while (getchar() != '\n');
+}
 
-void demander_couper();
+void demander_couper(char monchoix[2]) {
+    printf("\nMerci de donner votre choix : ");
+
+    scanf("%s", monchoix);
+    clear();
+}
 
 void init_carte();
 
-void clear() {
-    while (getchar() != '\n');
+void menu_aide(int menu) {
+    char choix = 1;
+    printf("==============================\n");
+    printf("Regles du jeu");
+    printf("\nLes bateaux : \nIl y a cinq bateaux disponible \n\nUn zodiaque de 1 case\n"
+           "Une vedette rapide de 2 cases\n"
+           "Un croiseur de 3 cases\n"
+           "Un cuirasse de 4 cases\n"
+           "Un porte-avion de 5 cases\n\nDeux bateaux ne peuvent pas se toucher\n"
+           "Un bateau ne peut pas etre en contact avec le bord de la grille par plus que 1 case");
+    printf("\n==============================\n");
+
+    if (menu == 1) {
+        if (choix == 1) {
+            printf("Voulez-vous retourner au menu principal ? (Oui: 1)\n");
+            scanf("%d", &choix);
+            menu_principal();
+        }
+    }
+    if (menu == 2) {
+        do {
+            printf("Voulez-vous retourner en jeu ? (Oui: 1)\n");
+            scanf("%d", &choix);
+
+        } while (choix != 1);
+    }
+
+
 }
 
 void partie() {
@@ -83,11 +117,9 @@ void partie() {
             case 'J':
                 index_col = 9;
                 break;
-            case 0:
-                menu_aide(2);
-                break;
-
-
+        }
+        if (choix[0] == 48) {
+            menu_aide(2);
         }
         int index_ligne = choix[1] - DECAL;
         if (index_ligne == 0) {
@@ -95,7 +127,6 @@ void partie() {
                 index_ligne = 9;
             }
         }
-        printf("col : %d ligne : %d\n", index_col, index_ligne);
         if (carte[index_col][index_ligne] == 1) {
             printf("toucher ! \n");
             coupJouer[index_col][index_ligne] = 1;
@@ -126,33 +157,13 @@ void menu_principal() {
         printf("Erreur veuillez entrer un nombre entre 1 et 3 :\n");
         scanf("%d", &votre_choix);
     }
-
-    switch (votre_choix) {
-        case 1:
-            menu_aide(1);
-            break;
-
-        case 2:
-            partie();
-            break;
-
-        case 3:
-            printf("Scores :");
-            break;
+    if (votre_choix == 1) {
+        menu_aide(1);
+    }
+    if (votre_choix == 2) {
+        partie();
     }
 
-}
-
-void menu_aide(int menu) {
-    printf("==============================\n");
-    printf("Regles du jeu");
-    printf("\nLes bateaux : \nIl y a cinq bateaux disponible \n\nUn zodiaque de 1 case\n"
-           "Une vedette rapide de 2 cases\n"
-           "Un croiseur de 3 cases\n"
-           "Un cuirasse de 4 cases\n"
-           "Un porte-avion de 5 cases\n\nDeux bateaux ne peuvent pas se toucher\n"
-           "Un bateau ne peut pas etre en contact avec le bord de la grille par plus que 1 case");
-    printf("\n==============================\n");
 
 }
 
@@ -192,14 +203,6 @@ void afficher_coup() {
         }
         printf("\n");
     }
-}
-
-
-void demander_couper(char monchoix[2]) {
-    printf("\nMerci de donner votre choix : ");
-
-    scanf("%s", monchoix);
-    clear();
 }
 
 
