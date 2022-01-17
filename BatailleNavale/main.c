@@ -9,6 +9,10 @@ int carte[MAX_TAB][MAX_TAB];
 
 void menu_principal();
 
+void init_bateaux();
+
+void bateau_coule();
+
 void init_coup();
 
 void afficher_coup();
@@ -29,7 +33,8 @@ void init_carte();
 void menu_aide(int menu) {
     char choix = 1;
     printf("==============================\n");
-    printf("Regles du jeu");
+    printf("Regles du jeu\n");
+    printf("\nVideo expliquant les regles de la bataille navale : https://www.youtube.com/watch?v=klO6vPWPkzE\n");
     printf("\nLes bateaux : \nIl y a cinq bateaux disponible \n\nUn zodiaque de 1 case\n"
            "Une vedette rapide de 2 cases\n"
            "Un croiseur de 3 cases\n"
@@ -56,89 +61,134 @@ void menu_aide(int menu) {
 
 }
 
+
+void touche_coule(int valeur, int ligne, int colonne) {
+    switch (valeur) {
+        case 100:
+            carte[colonne][ligne] = 111;
+            printf("touche-coule\n");
+            break;
+
+        case 200:
+            carte[colonne][ligne] = 210;
+            if (bateau_coule(valeur) == 0) {
+                printf("touche-coule\n");
+            }
+            break;
+
+    }
+
+}
+
+int bateau_coule(int valeur) {
+
+    int retour = 0;
+
+    for (int y = 0; y < MAX_TAB; y++) {
+        for (int x = 0; x < MAX_TAB; x++) {
+            if (carte[x][y] == valeur) {
+                retour++;
+            }
+        }
+    }
+    return retour;
+}
+
+
 void partie() {
-    int index_col = 0;
+    int col = 0;
     char choix[3];
     char votre_nom[50];
-    int score = 50;
+    int score = 2;
     printf("Votre nom : \n");
     scanf("%s", votre_nom);
     clear();
 
-    init_carte();
+    init_bateaux();
     init_coup();
 
 
-    while (choix[0] != 'k') {
+    while (choix[0] != 'k' && score != 0) {
         printf("Joueur : %s \n\n", votre_nom);
         printf("Score %d\n\n", score);
         afficher_coup();
         demander_couper(choix);
+        touche_coule();
         printf("Vous avez choisi : %s\n", choix);
         printf("Votre col : %C et votre ligne : %c%c\n", choix[0], choix[1], choix[2]);
 
         switch (choix[0]) {
             case 'a':
             case 'A':
-                index_col = 0;
+                col = 0;
                 break;
             case 'b':
             case 'B':
-                index_col = 1;
+                col = 1;
                 break;
             case 'c':
             case 'C':
-                index_col = 2;
+                col = 2;
                 break;
             case 'd':
             case 'D':
-                index_col = 3;
+                col = 3;
                 break;
             case 'e':
             case 'E':
-                index_col = 4;
+                col = 4;
                 break;
             case 'f':
             case 'F':
-                index_col = 5;
+                col = 5;
                 break;
             case 'g':
             case 'G':
-                index_col = 6;
+                col = 6;
                 break;
             case 'h':
             case 'H':
-                index_col = 7;
+                col = 7;
                 break;
             case 'i':
             case 'I':
-                index_col = 8;
+                col = 8;
                 break;
             case 'j':
             case 'J':
-                index_col = 9;
+                col = 9;
                 break;
         }
+
+
         if (choix[0] == 48) {
             menu_aide(2);
             score = score + 1;
         }
-        int index_ligne = choix[1] - DECAL;
+        int lignes = choix[1] - DECAL;
         if ((choix[1] - DECAL) == 0) {
             if (choix[2] == 48) {
-                index_ligne = 9;
+                lignes = 9;
             }
         }
-        if (carte[index_col][index_ligne] > 0) {
+        if (carte[col][lignes] > 0) {
             printf("toucher ! \n");
-            coupJouer[index_col][index_ligne] = carte[index_col][index_ligne];
+            coupJouer[col][lignes] = carte[col][lignes];
         } else {
             printf("Out !\n");
-            coupJouer[index_col][index_ligne] = 9;
+            coupJouer[col][lignes] = 9;
             score--;
         }
-
     }
+
+    if (score == 0) {
+        printf("Vous avez perdu!\n");
+        printf("\nVoulez-vous retourner au menu principal ? (Oui: 1)\n");
+        scanf("%d", &choix);
+        menu_principal();
+    }
+
+
 }
 
 void menu_principal() {
@@ -169,22 +219,22 @@ void menu_principal() {
 
 }
 
-void init_carte() {
-    carte[1][1] = 1;
-    carte[1][3] = 2;
-    carte[2][3] = 2;
-    carte[1][5] = 3;
-    carte[2][5] = 3;
-    carte[3][5] = 3;
-    carte[1][7] = 4;
-    carte[2][7] = 4;
-    carte[3][7] = 4;
-    carte[4][7] = 4;
-    carte[8][0] = 5;
-    carte[8][1] = 5;
-    carte[8][2] = 5;
-    carte[8][3] = 5;
-    carte[8][4] = 5;
+void init_bateaux() {
+    carte[1][1] = 100;
+    carte[1][3] = 200;
+    carte[2][3] = 200;
+    carte[1][5] = 300;
+    carte[2][5] = 300;
+    carte[3][5] = 300;
+    carte[1][7] = 400;
+    carte[2][7] = 400;
+    carte[3][7] = 400;
+    carte[4][7] = 400;
+    carte[8][0] = 500;
+    carte[8][1] = 500;
+    carte[8][2] = 500;
+    carte[8][3] = 500;
+    carte[8][4] = 500;
 }
 
 void init_coup() {
