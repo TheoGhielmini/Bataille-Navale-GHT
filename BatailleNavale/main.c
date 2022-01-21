@@ -11,11 +11,9 @@ void menu_principal();
 
 void init_bateaux();
 
-void bateau_coule();
-
 void init_coup();
 
-void afficher_coup();
+void afficher_carte();
 
 void clear() {
     while (getchar() != '\n');
@@ -27,8 +25,6 @@ void demander_couper(char monchoix[2]) {
     scanf("%s", monchoix);
     clear();
 }
-
-void init_carte();
 
 void menu_aide(int menu) {
     char choix = 1;
@@ -61,26 +57,7 @@ void menu_aide(int menu) {
 
 }
 
-
-void touche_coule(int valeur, int ligne, int colonne) {
-    switch (valeur) {
-        case 100:
-            carte[colonne][ligne] = 111;
-            printf("touche-coule\n");
-            break;
-
-        case 200:
-            carte[colonne][ligne] = 210;
-            if (bateau_coule(valeur) == 0) {
-                printf("touche-coule\n");
-            }
-            break;
-
-    }
-
-}
-
-int bateau_coule(int valeur) {
+int bateauCoule(int valeur) {
 
     int retour = 0;
 
@@ -94,6 +71,45 @@ int bateau_coule(int valeur) {
     return retour;
 }
 
+void victoire(){
+
+}
+
+void touche_coule(int valeur, int ligne, int colonne) {
+    switch (valeur) {
+        case 100:
+            carte[colonne][ligne] = 111;
+            printf("touche-coule !\n\n");
+            break;
+
+        case 200:
+            carte[colonne][ligne] = 210;
+            if (bateauCoule(valeur) == 0) {
+                printf("touche-coule !\n\n");
+            }
+            break;
+        case 300:
+            carte[colonne][ligne] = 310;
+            if (bateauCoule(valeur) == 0) {
+                printf("touche-coule !\n\n");
+            }
+            break;
+        case 400:
+            carte[colonne][ligne] = 410;
+            if (bateauCoule(valeur) == 0) {
+                printf("touche-coule !\n\n");
+            }
+            break;
+        case 500:
+            carte[colonne][ligne] = 510;
+            if (bateauCoule(valeur) == 0) {
+                printf("touche-coule !\n\n");
+            }
+            break;
+
+    }
+
+}
 
 void partie() {
     int col = 0;
@@ -111,11 +127,10 @@ void partie() {
     while (choix[0] != 'k' && score != 0) {
         printf("Joueur : %s \n\n", votre_nom);
         printf("Score %d\n\n", score);
-        afficher_coup();
+        afficher_carte();
         demander_couper(choix);
-        touche_coule();
         printf("Vous avez choisi : %s\n", choix);
-        printf("Votre col : %C et votre ligne : %c%c\n", choix[0], choix[1], choix[2]);
+        printf("Votre col : %C et votre ligne : %c%c\n\n", choix[0], choix[1], choix[2]);
 
         switch (choix[0]) {
             case 'a':
@@ -172,14 +187,17 @@ void partie() {
             }
         }
         if (carte[col][lignes] > 0) {
-            printf("toucher ! \n");
+            printf("touche ! \n\n");
             coupJouer[col][lignes] = carte[col][lignes];
+
         } else {
-            printf("Out !\n");
+            printf("A l'eau !\n\n");
             coupJouer[col][lignes] = 9;
             score--;
         }
+        touche_coule(carte[col][lignes], lignes, col);
     }
+
 
     if (score == 0) {
         printf("Vous avez perdu!\n");
@@ -193,7 +211,7 @@ void partie() {
 
 void menu_principal() {
     int votre_choix;
-    init_carte();
+    init_bateaux();
     init_coup();
     printf("\nWelcome to BatNaV");
     printf("\n=========================\n");
@@ -245,7 +263,7 @@ void init_coup() {
     }
 }
 
-void afficher_coup() {
+void afficher_carte() {
     printf("      A  B  C  D  E  F  G  H  I  J\n");
     printf("      _  _  _  _  _  _  _  _  _  _\n");
     for (int i = 0; i < MAX_TAB; i++) {
