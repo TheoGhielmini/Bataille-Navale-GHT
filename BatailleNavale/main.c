@@ -115,7 +115,7 @@ void partie() {
     int col = 0;
     char choix[3];
     char votre_nom[50];
-    int score = 2;
+    int score = 50;
     printf("Votre nom : \n");
     scanf("%s", votre_nom);
     clear();
